@@ -28,10 +28,10 @@ export const createAdventure = (token) => {
                     type: SUCCESS_ADVENTURE,
                     room: response.data,
                 })
-                dispatch({
-                    type: SUCCESS_ROOM,
-                    room: response.data,
-                })
+                // dispatch({
+                //     type: SUCCESS_ROOM,
+                //     room: response.data,
+                // })
                 // window.location.href = '/api/adv/move'
             })
             .catch(err => {
