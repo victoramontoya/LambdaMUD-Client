@@ -8,7 +8,6 @@ import Title from './Title';
 import MessageList from './MessageList';
 import SendMessageForm from './SendMessageForm';
 import Pusher from 'pusher-js'
-import { ChatManager, TokenProvider, Chatkit } from '@pusher/chatkit-client'
 
 
 class Chat extends Component {

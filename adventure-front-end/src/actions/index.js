@@ -47,12 +47,12 @@ export const createAdventure = (token) => {
 //                 players: response.data["players"],
 
 //pending or updating??
-export const moveAdventure = (move) => {
+export const moveAdventure = (data, token) => {
     return dispatch => {
         dispatch({ type: PENDING });
-        console.log(move);
+        console.log(data);
         axios
-            .post('https://lambda-mud-victor.herokuapp.com/api/adv/move', move)
+            .post('https://lambda-mud-victor.herokuapp.com/api/adv/move', data)
             .then(response => {
                 dispatch({ type: SUCCESS_ADVENTURE, adventure: response.data })
             })

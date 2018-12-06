@@ -3,7 +3,7 @@
 /// render the game
 
 import React, { Component } from 'react';
-import { moveAdventure } from '../actions';
+import { createAdventure } from '../actions';
 import { connect } from 'react-redux';
 import { Button } from 'reactstrap';
 import Room from './Room';
@@ -51,26 +51,20 @@ class Adventure extends Component {
     }
 
 
-
-
-    handleMove = (e) => {
-        e.preventDefault();
-        this.props.moveAdventure(this.state);
-    };
-
     render() {
         return (
             <div>
                 <Room room={this.room} description={this.description}/>
                 <Chat messages={this.messages} />
-                {/* <MoveCommands
+                <MoveCommands
                     updateMsg={this.updateMessages}
-                    moveRooms={this.moveRooms}/> */}
+                    moveRooms={this.moveRooms}/>
             </div>
         )
     }
 }
 //where do I update state. Should I split state between adventure and move adv?
+//see MoveCommands and Chat
 function mapStateToProps(state) {
     return {
         errorMessage: state.error,
@@ -84,4 +78,4 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps, { moveAdventure })(Adventure);
+export default connect(mapStateToProps, { createAdventure })(Adventure);
