@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 import Adventure from './Adventure'
 import Login from './Login'
 import Register from './Register'
-import StartAdventure from './StartAdventure'
+// import StartAdventure from './StartAdventure'
 
 
 // import './Main.css'
@@ -19,8 +19,8 @@ const Main = () => (
         <Route exact path='/api/login' component={Login} />
         <Route exact path='/' component={Login} />
         <Route path='/api/register' component={Register} />
-        <Route path='/api/adv/init' component={StartAdventure} />
-        <Route path='/api/adv/move' component={Adventure} />
+        {/* <Route path='/api/adv/init' component={StartAdventure} /> */}
+        <Route path='/api/adv/init' component={Adventure} />
 
 
 

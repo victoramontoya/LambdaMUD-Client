@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { PENDING, ERROR, SUCCESS_CHAT, SUCCESS_ADVENTURE, UPDATING, SET_TOKEN } from '../actions';
 
 const initialState = {
-    chat: [],
+    messages: [],
     adventure: [],
     creatingAdventure: false,
     fetchingAdventure: false,
@@ -10,10 +10,13 @@ const initialState = {
     updatingChat: false,
     error: null,
     tokenInitialState : null,
-    // chat: {
-    //     modal: false,
-
-    // }
+    errorMessage: false,
+    message: "",
+    room: "",
+    uuid: null,
+    name: "",
+    description: "",
+    players: [],
 }
 
 const token = (state = initialState, action) => {
