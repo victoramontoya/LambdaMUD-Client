@@ -8,8 +8,8 @@ export const SET_TOKEN = "SET_TOKEN";
 export const LOGIN_PENDING = "LOGIN_PENDING"
 export const SUCCESS_ROOM ="SUCCESS_ROOM"
 
-export const createAdventure = (token) => {
-    // const token = localStorage.getItem('token')
+export const createAdventure = () => {
+    const token = localStorage.getItem('token')
     return (dispatch) => {
         dispatch({ type: PENDING });
         axios

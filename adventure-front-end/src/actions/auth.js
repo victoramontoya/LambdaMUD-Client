@@ -66,6 +66,7 @@ export const loginUser = ({ username, password }) => {
             .then(({ data }) => {
                 localStorage.setItem('token', data.key)
                 dispatch({ type: AUTH_USER, user: data })
+                window.location.href = '/api/adv/init';
             })
             .catch(() => {
                 dispatch({ type: ERROR, error: 'ERROR LOGGIN IN!' })

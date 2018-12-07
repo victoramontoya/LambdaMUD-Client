@@ -26,13 +26,14 @@ class Adventure extends Component {
     // };
 
     componentDidMount() {
-        const { token } = this.state;
+        const token = localStorage.getItem("token");
         if (token === null) {
-            this.setState({ loggedOn: false })
+            window.location.href = '/api/login';
+
             return
         }
         // Pusher.logToConsole = true;
-        this.props.createAdventure(token)
+        this.props.createAdventure()
         // this.loadGreetingMessage();
         // const pusher = new Pusher('040beb8e47f7cd255c5b', {
         //     cluster: 'us2',
@@ -61,6 +62,7 @@ class Adventure extends Component {
 //where do I update state. Should I split state between adventure and move adv?
 //see MoveCommands and Chat
 function mapStateToProps(state) {
+    console.log(state, "this state")
     return {
         errorMessage: state.adventureReducer.error,
         message: state.chatReducer.message,
