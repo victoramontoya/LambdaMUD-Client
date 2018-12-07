@@ -1,4 +1,4 @@
-
+// Adventure.js
 /// onclicks or on button push for game event listeners
 /// render the game
 
@@ -16,20 +16,14 @@ import MoveCommands from './MoveCommands';
 
 
 class Adventure extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            // uuid: '',
-            // name: '',
-            // room: '',
-            // description: '',
-            // messages: [],
-            // players: [],
-            adventure: [],
-            loggedin: true,
-            token: localStorage.getItem("token"),
-        }
-    };
+    // constructor(props) {
+    //     super(props);
+    //     // this.state = {
+    //     //     adventure: [],
+    //     //     loggedin: true,
+    //     //     token: localStorage.getItem("token"),
+    //     // }
+    // };
 
     componentDidMount() {
         const { token } = this.state;
@@ -37,28 +31,29 @@ class Adventure extends Component {
             this.setState({ loggedOn: false })
             return
         }
-        Pusher.logToConsole = true;
-        this.createAdventure(token)
+        // Pusher.logToConsole = true;
+        this.props.createAdventure(token)
         // this.loadGreetingMessage();
-        const pusher = new Pusher('040beb8e47f7cd255c5b', {
-            cluster: 'us2',
-            forceTLS: true
-        });
-        const channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
-        channel.bind('broadcast', response => {
-            this.streamPusherMessage(response.message);
-        })
+        // const pusher = new Pusher('040beb8e47f7cd255c5b', {
+        //     cluster: 'us2',
+        //     forceTLS: true
+        // });
+        // const channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
+        // channel.bind('broadcast', response => {
+        //     this.streamPusherMessage(response.message);
+        // })
     }
 
 
     render() {
+        console.log(this.props)
         return (
             <div>
-                <Room room={this.room} description={this.description}/>
+                <Room room={this.room} description={this.description} />
                 <Chat messages={this.messages} />
                 <MoveCommands
                     updateMsg={this.updateMessages}
-                    moveRooms={this.moveRooms}/>
+                    moveRooms={this.moveRooms} />
             </div>
         )
     }
@@ -67,15 +62,14 @@ class Adventure extends Component {
 //see MoveCommands and Chat
 function mapStateToProps(state) {
     return {
-        errorMessage: state.error,
-        message: state.message,
-        room: state.room,
-        uuid: state.uuid,
-        name: state.name,
-        description: state.description,
-        players: state.players,
+        errorMessage: state.adventureReducer.error,
+        message: state.chatReducer.message,
+        room: state.adventureReducer.room,
+        uuid: state.chatReducer.uuid,
+        name: state.chatReducer.name,
+        description: state.adventureReducer.description,
+        players: state.adventureReducer.players,
     };
 }
-
 
 export default connect(mapStateToProps, { createAdventure })(Adventure);

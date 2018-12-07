@@ -9,13 +9,12 @@ export const LOGIN_PENDING = "LOGIN_PENDING"
 export const SUCCESS_ROOM ="SUCCESS_ROOM"
 
 export const createAdventure = (token) => {
+    // const token = localStorage.getItem('token')
     return (dispatch) => {
         dispatch({ type: PENDING });
         axios
-            .get('https://lambda-mud-victor.herokuapp.com/api/adv/init', {
-                headers: {
-                    "Authorization": "Token " + token
-                }
+            .get('https://lambda-mud-victor.herokuapp.com/api/adv/init', token, {
+                headers: { Authorization: `Token ${token}` }
             })
             .then(response => {
                 dispatch({ 
@@ -61,23 +60,23 @@ export const moveAdventure = (data, token) => {
             })
     }
 }
-
-export const createChat = (message) => {
+export const createChat = message => {
+    const token = localStorage.getItem('token')
     return dispatch => {
-        dispatch({ type: PENDING });
-        console.log(message);
+        dispatch({ type: PENDING })
         axios
-            .post('https://lambda-mud-victor.herokuapp.com/api/adv/say', message)
+            .post('https://lambda-mud-victor.herokuapp.com/api/adv/say', message, {
+                headers: { Authorization: `Token ${token}` }
+            })
             .then(response => {
-                console.log(response.messages)
                 dispatch({ type: SUCCESS_CHAT, messages: response.messages })
-
             })
             .catch(() => {
                 dispatch({ type: ERROR, error: 'ERROR CREATING CHAT' })
             })
     }
 }
+
 
 export const setToken = (data) => {
     return {

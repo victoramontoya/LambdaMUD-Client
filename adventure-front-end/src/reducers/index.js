@@ -1,17 +1,10 @@
 import { combineReducers } from 'redux';
 import { PENDING, ERROR, SUCCESS_CHAT, SUCCESS_ADVENTURE, UPDATING, SET_TOKEN } from '../actions';
 
-const initialState = {
-    messages: [],
+const adventureState = {
     adventure: [],
     creatingAdventure: false,
     fetchingAdventure: false,
-    creatingChat: false,
-    updatingChat: false,
-    error: null,
-    tokenInitialState : null,
-    errorMessage: false,
-    message: "",
     room: "",
     uuid: null,
     name: "",
@@ -19,7 +12,23 @@ const initialState = {
     players: [],
 }
 
-const token = (state = initialState, action) => {
+const chatState = {
+    creatingChat: false,
+    updatingChat: false,
+    error: null,
+    errorMessage: false,
+    message: "",
+    messages: [],
+
+}
+
+const tokenState = {
+    tokenInitialState: null,
+    loggedIn : true
+
+}
+
+const token = (state = tokenState, action) => {
     switch (action.type) {
         case SET_TOKEN:
             return action.data;
@@ -28,7 +37,7 @@ const token = (state = initialState, action) => {
     }
 }
 
-const adventureReducer = (state = initialState, action) => {
+const adventureReducer = (state = adventureState, action) => {
     switch (action.type) {
         case PENDING:
             return Object.assign({}, state, { fetchingAdventure: true });
@@ -49,11 +58,11 @@ const adventureReducer = (state = initialState, action) => {
 }
 
 
-const chatReducer = (state = initialState, action) => {
+const chatReducer = (state = chatState, action) => {
     switch (action.type) {
         case SUCCESS_CHAT:
             return Object.assign({}, state, {
-                chat: action.chat,
+                messages: action.messages,
                 updatingChat: false
             });
         case ERROR:
@@ -64,7 +73,7 @@ const chatReducer = (state = initialState, action) => {
         case UPDATING:
             return Object.assign({}, state, {
                 updatingChat: true,
-                chat: action.chat
+                messages: action.messages
             });
         default:
             return state;

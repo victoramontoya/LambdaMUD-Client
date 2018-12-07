@@ -70,8 +70,8 @@ class Login extends Component {
 }
 function mapStateToProps(state) {
     return {
-        errorMessage: state.error,
-        message: state.message
+        tokenInitialState: state.token.tokenInitialState,
+        loggedIn: state.token.loggedIn
     };
 }
 

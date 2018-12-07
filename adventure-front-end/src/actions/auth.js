@@ -47,9 +47,9 @@ export const createUser = ({ username, password1, password2 }) => {
         console.log(username);
         axios
             .post(`https://lambda-mud-victor.herokuapp.com/api/registration/`, { username, password1, password2 })
-            .then(response => {
-                // Cookies.save('token', response.data.token, { path: '/api/registration' });
-                dispatch({ type: SUCCESS_USER, users: response.data })
+            .then(({ data }) => {
+                localStorage.setItem('token', data.key)
+                dispatch({ type: SUCCESS_USER, users: data.key })
                 window.location.href = '/api/adv';
             })
             .catch(() => {
@@ -63,17 +63,16 @@ export const loginUser = ({ username, password }) => {
         dispatch({ type: PENDING });
         axios
             .post(`https://lambda-mud-victor.herokuapp.com/api/login`, { username, password })
-            .then(response => {
-                // Cookies.save('token', response.data.token, { path: '/api/login' });
-                dispatch({ type: AUTH_USER, user: response.data })
-                window.location.href = '/api/adv/init';
-
+            .then(({ data }) => {
+                localStorage.setItem('token', data.key)
+                dispatch({ type: AUTH_USER, user: data })
             })
             .catch(() => {
                 dispatch({ type: ERROR, error: 'ERROR LOGGIN IN!' })
             })
     }
 }
+
 export function logoutUser() {
     return function (dispatch) {
         dispatch({ type: UNAUTH_USER });
